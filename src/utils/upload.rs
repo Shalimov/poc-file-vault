@@ -115,10 +115,3 @@ pub async fn save_file(
     }
     Ok(arr)
 }
-
-#[allow(unused)]
-pub async fn delete_object(list: Vec<String>) {
-    for key in list {
-        Client::new().delete_object(key).await;
-    }
-}

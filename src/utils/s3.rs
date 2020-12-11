@@ -25,16 +25,7 @@ impl Client {
     }
 
     // pub fn generate_bucket_name() -> String {}
-
-    pub fn url(&self, key: &str) -> String {
-        format!(
-            "https://{}.s3.{}.amazonaws.com/{}",
-            std::env::var("AWS_S3_BUCKET_NAME").unwrap(),
-            std::env::var("AWS_REGION").unwrap(),
-            key
-        )
-    }
-
+    
     pub async fn put_object(&self, localfilepath: &str, key: &str) -> String {
         let mut file = std::fs::File::open(localfilepath).unwrap();
         let mut contents: Vec<u8> = Vec::new();
