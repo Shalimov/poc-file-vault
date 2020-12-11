@@ -1,4 +1,6 @@
+use bytes::{Buf, Bytes};
 use rusoto_core::Region;
+use futures::StreamExt;
 use rusoto_s3::S3;
 use rusoto_s3::{DeleteObjectRequest, PutObjectRequest, S3Client};
 use std::io::Read;
@@ -24,16 +26,18 @@ impl Client {
         }
     }
 
-    // pub fn generate_bucket_name() -> String {}
-    
-    pub async fn put_object(&self, localfilepath: &str, key: &str) -> String {
-        let mut file = std::fs::File::open(localfilepath).unwrap();
+    pub fn generate_bucket_name(&self, key: &str) -> String {
+        self.bucket_name_template.replace("{ORGANIZATION_UID}", key)
+    }
+
+    pub async fn put_object(&self, organization_uid: &str, file_buffer: Bytes) -> String {
         let mut contents: Vec<u8> = Vec::new();
         let _ = file.read_to_end(&mut contents);
+
         let put_request = PutObjectRequest {
-            bucket: self.bucket_name.to_owned(),
+            bucket: self.generate_bucket_name(organization_uid),
             key: key.to_owned(),
-            body: Some(contents.into()),
+            body: Some(file_buffer.to_),
             ..Default::default()
         };
         let _res = self
