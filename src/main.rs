@@ -1,4 +1,3 @@
-use crate::controllers::image_controller;
 use actix_web::{middleware, App, HttpServer};
 
 mod controllers;
@@ -14,7 +13,7 @@ async fn main() -> std::io::Result<()> {
   HttpServer::new(|| {
     App::new()
       .wrap(middleware::Logger::default())
-      .service(image_controller::image_upload)
+      .service(controllers::image_controller::image_upload)
   })
   .bind(ip)?
   .run()

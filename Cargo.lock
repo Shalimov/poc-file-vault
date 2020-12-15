@@ -772,6 +772,7 @@ dependencies = [
  "dotenv",
  "futures",
  "image",
+ "rayon",
  "rusoto_core",
  "rusoto_s3",
  "sanitize-filename",
