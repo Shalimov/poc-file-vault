@@ -7,3 +7,21 @@ pub enum ImageExtension {
   #[serde(rename = "jpg")]
   JPG,
 }
+
+impl ToString for ImageExtension {
+  fn to_string(&self) -> String {
+    match self {
+      ImageExtension::JPG => "jpg".to_owned(),
+      ImageExtension::PNG => "png".to_owned(),
+    }
+  }
+}
+
+impl ImageExtension {
+  pub fn which_mime(&self) -> String {
+    match &self {
+      ImageExtension::JPG => "image/jpeg".to_owned(),
+      ImageExtension::PNG => "image/png".to_owned(),
+    }
+  }
+}
