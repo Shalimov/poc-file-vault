@@ -6,7 +6,6 @@ pub struct Client {
     #[allow(dead_code)]
     region: Region,
     s3: S3Client,
-    key: String,
     bucket_name: String,
 }
 
@@ -22,15 +21,14 @@ impl Client {
         Client {
             region: region.to_owned(),
             s3: s3client,
-            key: "w2cjebtqm333".to_owned(),
             bucket_name: "file-vault-debug-test-w2cjebtqm333".to_owned(),
         }
     }
 
-    pub async fn put_object(&self, file_buffer: Vec<u8>) -> String {
+    pub async fn put_object(&self, file_name: &str, file_buffer: Vec<u8>) -> String {
         let put_request = PutObjectRequest {
             bucket: self.bucket_name.clone(),
-            key: self.key.clone(),
+            key: file_name.to_string(),
             body: Some(file_buffer.into()),
             ..Default::default()
         };

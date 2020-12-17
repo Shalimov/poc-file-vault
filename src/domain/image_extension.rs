@@ -16,12 +16,3 @@ impl ToString for ImageExtension {
     }
   }
 }
-
-impl ImageExtension {
-  pub fn which_mime(&self) -> String {
-    match &self {
-      ImageExtension::JPG => "image/jpeg".to_owned(),
-      ImageExtension::PNG => "image/png".to_owned(),
-    }
-  }
-}
