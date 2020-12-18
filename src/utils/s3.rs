@@ -1,4 +1,4 @@
-use rusoto_core::{credential::ProfileProvider, HttpClient, Region};
+use rusoto_core::Region;
 use rusoto_s3::S3;
 use rusoto_s3::{PutObjectRequest, S3Client};
 
@@ -13,10 +13,9 @@ impl Client {
     // construct S3 testing client
     pub fn new() -> Client {
         let region = Region::default();
-        let http_client = HttpClient::new().unwrap();
-        let provider = ProfileProvider::new().unwrap();
 
-        let s3client = S3Client::new_with(http_client, provider, Region::default());
+        let s3client = S3Client::new(Region::default());
+        //S3Client::new_with(http_client, provider, Region::default());
 
         Client {
             region: region.to_owned(),
