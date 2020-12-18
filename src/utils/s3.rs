@@ -4,7 +4,6 @@ use rusoto_s3::{PutObjectRequest, S3Client};
 
 pub struct Client {
     #[allow(dead_code)]
-    region: Region,
     s3: S3Client,
     bucket_name: String,
 }
@@ -12,13 +11,10 @@ pub struct Client {
 impl Client {
     // construct S3 testing client
     pub fn new() -> Client {
-        let region = Region::default();
-
         let s3client = S3Client::new(Region::default());
         //S3Client::new_with(http_client, provider, Region::default());
 
         Client {
-            region: region.to_owned(),
             s3: s3client,
             bucket_name: "file-vault-debug-test-w2cjebtqm333".to_owned(),
         }

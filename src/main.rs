@@ -1,4 +1,4 @@
-use actix_web::{middleware, web, App, HttpServer};
+use actix_web::{middleware, App, HttpServer};
 
 mod controllers;
 mod domain;
@@ -10,13 +10,13 @@ async fn main() -> std::io::Result<()> {
 
   let ip = "0.0.0.0:3000";
 
-  println!("Server started on address: {}", ip);
+  println!("File-Vault-Server started on address: {}", ip);
 
   HttpServer::new(|| {
-    App::new().wrap(middleware::Logger::default()).service(
-      web::resource("/v1/images/upload")
-        .route(web::post().to(controllers::image_controller::image_upload)),
-    )
+    App::new()
+      .wrap(middleware::Logger::default())
+      .service(controllers::image_controller::image_upload)
+      .service(controllers::status_controller::server_status)
   })
   .bind(ip)?
   .run()

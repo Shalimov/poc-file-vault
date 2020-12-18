@@ -1,6 +1,6 @@
 use crate::utils::{multipart, s3};
 use actix_multipart::Multipart;
-use actix_web::{Error, HttpResponse};
+use actix_web::{post, Error, HttpResponse};
 use bytes::Bytes;
 use image::imageops::FilterType;
 use image::{load_from_memory as load_image, DynamicImage};
@@ -9,6 +9,7 @@ use std::borrow::BorrowMut;
 
 const RESIZE_MODES: [u16; 9] = [200, 300, 400, 500, 600, 700, 800, 900, 1000];
 
+#[post("/v1/images/upload")]
 pub async fn image_upload(mut payload: Multipart) -> Result<HttpResponse, Error> {
   let (filename, file_buf): (Option<String>, Bytes) =
     multipart::split_payload(payload.borrow_mut()).await?;
