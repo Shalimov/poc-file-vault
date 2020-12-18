@@ -1,4 +1,4 @@
-use rusoto_core::Region;
+use rusoto_core::{credential::ProfileProvider, HttpClient, Region};
 use rusoto_s3::S3;
 use rusoto_s3::{PutObjectRequest, S3Client};
 
@@ -9,14 +9,23 @@ pub struct Client {
 }
 
 impl Client {
-    // construct S3 testing client
     pub fn new() -> Client {
-        let s3client = S3Client::new(Region::default());
-        //S3Client::new_with(http_client, provider, Region::default());
+        let region = Region::Custom {
+            name: "us-west-2".to_owned(),
+            endpoint: "file-vault-debug-test-w2cjebtqm333.s3-us-west-2.amazonaws.com".to_owned(),
+        };
 
+        let s3client: S3Client = if cfg!(feature = "profile") {
+            let http_client = HttpClient::new().unwrap();
+            let provider = ProfileProvider::new().unwrap();
+
+            S3Client::new_with(http_client, provider, region)
+        } else {
+            S3Client::new(region)
+        };
         Client {
             s3: s3client,
-            bucket_name: "file-vault-debug-test-w2cjebtqm333".to_owned(),
+            bucket_name: "file-vault-debug-test-w2cjebtqm333.".to_owned(),
         }
     }
 

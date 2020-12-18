@@ -772,6 +772,7 @@ dependencies = [
  "dotenv",
  "futures",
  "image",
+ "rand",
  "rayon",
  "rusoto_core",
  "rusoto_s3",
