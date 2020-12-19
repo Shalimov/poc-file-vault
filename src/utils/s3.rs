@@ -15,7 +15,7 @@ impl Client {
             endpoint: "file-vault-debug-test-w2cjebtqm333.s3-us-west-2.amazonaws.com".to_owned(),
         };
 
-        let s3client: S3Client = if cfg!(aws_profile) {
+        let s3client: S3Client = if cfg!(feature = "aws_profile") {
             let http_client = HttpClient::new().unwrap();
             let provider = ProfileProvider::new().unwrap();
 
