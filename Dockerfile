@@ -12,4 +12,4 @@ COPY --from=build /usr/app/file-vault-rust /usr/app/file-vault-rust
 
 EXPOSE 3000
 
-CMD ["file-vault-rust"]
+CMD ["/usr/app/file-vault-rust/target/release/file-vault-server"]
