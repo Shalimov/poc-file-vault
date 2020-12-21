@@ -4,9 +4,6 @@ version = "0.1.0"
 authors = ["shalimov <shalimich@gmail.com>"]
 edition = "2018"
 
-[features]
-aws_profile = []
-
 [dependencies]
 actix-web = "3"
 rayon = "1.5.0"
