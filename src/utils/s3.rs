@@ -1,4 +1,4 @@
-use rusoto_core::{credential::ChainProvider, HttpClient, Region};
+use rusoto_core::Region;
 use rusoto_s3::S3;
 use rusoto_s3::{PutObjectRequest, S3Client};
 
@@ -15,10 +15,7 @@ impl Client {
             endpoint: "file-vault-debug-test-w2cjebtqm333.s3-us-west-2.amazonaws.com".to_owned(),
         };
 
-        let http_client = HttpClient::new().unwrap();
-        let provider = ChainProvider::new();
-
-        let s3client = S3Client::new_with(http_client, provider, region);
+        let s3client = S3Client::new(region);
 
         Client {
             s3: s3client,
